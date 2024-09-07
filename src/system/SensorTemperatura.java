@@ -1,17 +1,18 @@
 package system;
 
-public class SensorTemperatura extends ISensores {
-double temperatura;
-	public SensorTemperatura(int id, int numSerie, double temperatura) {
-		super(id, numSerie);
-		this.temperatura = temperatura;
+import java.util.Random;
+
+public class SensorTemperatura extends Sensor {
+	private double temperatura;
+
+	// Construtores
+	public SensorTemperatura() {
+		super();
+		this.temperatura = new Random().nextDouble(10, 31);
 	}
+
+	// Métodos
 	public double getTemperatura() {
 		return temperatura;
 	}
-	public void setTemperatura(double temperatura) {
-		this.temperatura = temperatura;
-	};
-	
-
 }
