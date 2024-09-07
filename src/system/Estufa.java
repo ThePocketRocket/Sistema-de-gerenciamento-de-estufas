@@ -8,6 +8,7 @@ public class Estufa {
     private int idEstufa;
     private ArrayList <Sensor> listaSensores = new ArrayList<>();
     private Plantio plantio;
+    private double fatorControle;
 
     public Estufa(){
         this.idEstufa = contador.incrementAndGet();
@@ -16,16 +17,29 @@ public class Estufa {
         listaSensores.add(new SensorUmidadeAr());
     }
 
-    public double calculaFator() {
-        return 0;
+    public int getIdEstufa() {
+        return idEstufa;
+    }
+
+    public double getFatorControle() {
+        calculaFator();
+        return fatorControle;
+    }
+
+    public void calculaFator() {
+        double normTemp = ((SensorTemperatura) listaSensores.get(0)).getTemperatura();
+        double normUmiSolo = ((SensorUmidadeSolo) listaSensores.get(2)).getUmiSolo();
+        double normUmiAr = ((SensorUmidadeAr) listaSensores.get(1)).getUmiAr();
+
+        normTemp = (normTemp - 10) / 30;
+        normUmiSolo = (5 - normUmiSolo) / 5;
+        normUmiAr = (100 - normUmiAr) / 100;
+
+        this.fatorControle = (normTemp + normUmiSolo + normUmiAr) / 3;
     }
 
     public void controlaIrrigadores(){
 
-    }
-
-    public int getIdEstufa() {
-        return idEstufa;
     }
 
     @Override

@@ -10,7 +10,7 @@ public class SensorUmidadeAr extends Sensor{
         this.umiAr = new Random().nextDouble(0, 100);
     }
 
-    public double getUmiSolo() {
+    public double getUmiAr() {
         return umiAr;
     }
 }
