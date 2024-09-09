@@ -1,15 +1,18 @@
 package login;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class User {
     String nome;
     String senha;
+    private static final AtomicInteger contador = new AtomicInteger(0);
     int id;
     int nivel;
 
-    public User(String nome, String senha, int id, int nivel) {
+    public User(String nome, String senha, int nivel) {
         this.nome = nome;
         this.senha = senha;
-        this.id = id;
+        this.id = contador.incrementAndGet();
         this.nivel = nivel;
     }
     public String getNome() {
