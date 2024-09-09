@@ -2,9 +2,9 @@ package system;
 
 public class Irrigador extends Sensor {
 	// Nao sei o calculo de vazao
-	double vazao;
-	double tempo;
-	boolean estado = false;
+	private double vazao;
+	private double tempo;
+	private boolean estado = false;
 
 	public double getVazao() {
 		return vazao;
@@ -28,30 +28,29 @@ public class Irrigador extends Sensor {
 		return estado;
 	}
 //
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
 
-	
-	// respectivamente ligar e desligar os irrigadores
-	// Nao sei se sera usada essa implementacao 
-	// Estejam livres para apagar esta area abaixo
-	public void ligar(boolean estado) {
-		if (this.estado == false) {
+	public void ligar() {
+		if (this.estado) {
+			System.out.println("Já está ligado");
+		} else{
 			this.estado = true;
-			System.out.println("O irrigador foi ligado");
-		} else {
-			System.out.println("O irrigador ja esta ligado");
 		}
-		;
 	}
 
 	public void desligar(boolean estado) {
-		if (this.estado == false) {
-			System.out.println("O irrigador ja esta desligado");
+		if (!this.estado) {
+			System.out.println("Já está desligado");
 		} else {
 			this.estado = false;
-			System.out.println("O irrigador foi desligado");
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Irrigador{" +
+				"vazao=" + vazao +
+				", tempo=" + tempo +
+				", estado=" + estado +
+				'}';
 	}
 }
