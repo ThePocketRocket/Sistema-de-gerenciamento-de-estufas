@@ -26,15 +26,18 @@ public class Menu {
 					cadastrarAluno(sc);
 					break;
 				case 2:
-					exibirDados();
+					login(users);
 					break;
 				case 3:
-					cadastrarEstufa();
+					exibirDados();
 					break;
 				case 4:
+					cadastrarEstufa();
+					break;
+				case 5:
 					exibirDadosEstufas();
 					break;
-				case 0:
+				case 6:
 					System.out.println("Encerrando o programa.");
 					break;
 				default:
@@ -49,9 +52,10 @@ public class Menu {
 		System.out.println("\nMENU\n");
 		System.out.println("Selecione a opção desejada:");
 		System.out.println("1 - Cadastrar um novo aluno");
-		System.out.println("2 - Ver dados dos alunos");
-		System.out.println("3 - Cadastrar Estufa");
-		System.out.println("4 - Ver dados das estufas cadastradas");
+		System.out.println("2 - Logar no sistema");
+		System.out.println("3 - Ver dados dos alunos");
+		System.out.println("4 - Cadastrar Estufa");
+		System.out.println("5 - Ver dados das estufas cadastradas");
 		System.out.println("0 - Sair");
 		System.out.print("Digite sua escolha: ");
 	}
@@ -119,5 +123,31 @@ public class Menu {
 				}
 			}
 		}
+	}
+
+	public static void login(ArrayList<User> users) {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Digite seu nome: ");
+		String nome = sc.nextLine();
+		
+		System.out.println("Digite sua senha: ");
+		String senha = sc.nextLine();
+		
+		boolean find = false;
+		
+		for(User a: users) {
+			if((a.getNome().equals(nome))&&(a.getSenha().equals(senha))) {
+				System.out.println("Bem vindo(a): "+ a.getNome());
+				
+				find = true;
+				break;
+				
+			}
+		}
+			if (!find){
+				System.out.println("Usuario não encontrado!");
+			}
+		
 	}
 }
