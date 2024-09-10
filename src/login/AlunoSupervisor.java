@@ -4,7 +4,7 @@ public class AlunoSupervisor extends User {
 	
 
     public AlunoSupervisor(String nome, String senha, int id, int nivel) {
-        super(nome, senha, id, nivel);
+        super(nome, senha, nivel);
     }
 
     public String gerarRelatorioPlantio() {

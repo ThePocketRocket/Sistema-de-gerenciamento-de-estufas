@@ -1,13 +1,21 @@
 package login;
 
-public class Autenticador extends User {
-    public Autenticador(String nome, String senha, int id, int nivel) {
-        super(nome, senha, id, nivel);
-    }
+import java.util.ArrayList;
 
-    public boolean validaDados(String nome, String senha){
-        return this.nome.equals(nome) && this.senha.equals(senha);
-
-    }
+public class Autenticador {
+       
+	
+public void Autenticar(ArrayList<User> users, String nome, String senha) {
+	
+	for(User a : users) {
+		if(a.equals(nome) && (a.equals(senha))) {
+			System.out.println("Entrando...");
+		}
+		else {
+			System.out.println("Usuario não encontrado");
+			break;
+		}
+	}
+	
 }
-
+}
