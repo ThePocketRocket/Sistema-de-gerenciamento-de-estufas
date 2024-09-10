@@ -9,8 +9,8 @@ public class Professor {
         this.cadastro = cadastro;
     }
 
-    public void cadastraAluno(String nome, String senha, int id, int nivel, int idPlantio) {
-        AlunoCultivador aluno = new AlunoCultivador(nome, senha, id, nivel, idPlantio);
+    public void cadastraAluno(String nome, String senha, int nivel, int idPlantio) {
+        AlunoCultivador aluno = new AlunoCultivador(nome, senha, nivel, idPlantio);
         if (cadastro.validaCadastro(aluno)) {
             System.out.println("Aluno cadastrado com sucesso.");
         } else {
@@ -18,10 +18,9 @@ public class Professor {
         }
     }
 
-    // Cadastro de uma nova estufa
-    //public void cadastraEstufa(String nomeEstufa, int idEstufa, int idPlantio) {
-    //Estufa estufa = new Estufa(nomeEstufa, idEstufa, idPlantio);
-    //System.out.println("Estufa cadastrada: " + estufa.getNomeEstufa());
-    //}
+    public void cadastraEstufa() {
+    Estufa estufa = new Estufa();
+    System.out.println("Estufa cadastrada: " + estufa.getIdEstufa());
+    }
 }
 

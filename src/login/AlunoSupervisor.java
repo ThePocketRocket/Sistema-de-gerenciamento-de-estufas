@@ -3,8 +3,8 @@ package login;
 public class AlunoSupervisor extends User {
 	
 
-    public AlunoSupervisor(String nome, String senha, int id, int nivel) {
-        super(nome, senha, id, nivel);
+    public AlunoSupervisor(String nome, String senha, int nivel) {
+        super(nome, senha, nivel);
     }
 
     public String gerarRelatorioPlantio() {

@@ -1,13 +1,15 @@
 package login;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class User {
-    String nome;
-    String senha;
+    private ArrayList<User> users = new ArrayList<>();
+    private String nome;
+    private String senha;
     private static final AtomicInteger contador = new AtomicInteger(0);
-    int id;
-    int nivel;
+    private int id;
+    private int nivel;
 
     public User(String nome, String senha, int nivel) {
         this.nome = nome;
@@ -33,10 +35,6 @@ public class User {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getNivel() {

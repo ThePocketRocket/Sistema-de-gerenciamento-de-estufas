@@ -2,65 +2,107 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import login.*;
+import system.*;
 
-//Apenas para testar o cadastro
-//sera reformulado
 public class Menu {
 
-	public static ArrayList<AlunoCultivador> alunoCultivador = new ArrayList<>();
-
-//Apenas para testes
+	public static ArrayList<User> users = new ArrayList<>();
+	public  static ArrayList<Estufa> estufas = new ArrayList<>();
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
+		boolean continuar = true;
 
-		// Cadastrar alunos
-		System.out.println("Menu\n" + "Digite o numero correspondente a opcao que deseja realizar\n"
-				+ "1 - cadastrar um novo aluno\n" + "2 - ver dados");
-		int opt = sc.nextInt();
+		while (continuar) {
+			exibirMenu();
 
-		sc.nextLine();
-		
-		if (opt == 1) {
-			cadastrarAluno(sc);
+			int opcao = sc.nextInt();
+			sc.nextLine();
+
+			switch (opcao) {
+				case 1:
+					cadastrarAluno(sc);
+					break;
+				case 2:
+					exibirDados();
+					break;
+				case 3:
+					cadastrarEstufa();
+				case 4:
+					exibirDadosEstufas();
+				case 0:
+					continuar = false;
+					System.out.println("Encerrando o programa.");
+					break;
+				default:
+					System.out.println("Opção inválida.");
+			}
 		}
 
+		sc.close();
+	}
+
+	public static void exibirMenu() {
+		System.out.println("\nMENU");
+		System.out.println("Selecione a opção desejada:");
+		System.out.println("1 - Cadastrar um novo aluno");
+		System.out.println("2 - Ver dados dos alunos");
+		System.out.println("3 - Cadastrar Estufa");
+		System.out.println("4 - Ver dados das estufas cadastradas");
+		System.out.println("0 - Sair");
+		System.out.print("Digite sua escolha: ");
 	}
 
 	public static void cadastrarAluno(Scanner sc) {
-		System.out.println("Digite o nome do aluno:");
+		System.out.print("Digite o nome do aluno: ");
 		String nome = sc.nextLine();
 
-
-		System.out.println("Digite a senha");
+		System.out.print("Digite a senha: ");
 		String senha = sc.nextLine();
 
-		
-		System.out.println("ID");
-		int id = sc.nextInt();
-
-		
-		System.out.println("Nivel");
+		System.out.print("Digite 1 para cadastrar um aluno cultivador ou 2 para cadastrar um aluno supervisor: ");
 		int nivel = sc.nextInt();
+		sc.nextLine();
 
-		
 		int idPl = 1;
 
 		if (nivel == 1) {
-			AlunoCultivador aluno = new AlunoCultivador(nome, senha, id, nivel, idPl);
-
-			alunoCultivador.add(aluno);
-
-			System.out.println("cadastrado");
-
+			AlunoCultivador aluno1 = new AlunoCultivador(nome, senha, nivel, idPl);
+			users.add(aluno1);
+			System.out.println("Aluno cultivador cadastrado com sucesso!");
+		} else if (nivel == 2) {
+			AlunoSupervisor aluno2 = new AlunoSupervisor(nome, senha, nivel);
+			users.add(aluno2);
+			System.out.println("Aluno supervisor cadastrado com sucesso!");
+		} else {
+			System.out.println("Nível inválido. Por favor, escolha 1 ou 2.");
 		}
-
-		for (AlunoCultivador a : alunoCultivador) {
-			System.out.println("nome: " + a.getNome() + " ID: " + a.getId());
-		}
+	}
+	public static void cadastrarEstufa (){
+		Estufa estufa = new Estufa();
+		estufas.add(estufa);
+		System.out.println("Id da estufa:" + estufa.getIdEstufa());
 
 	}
-	
+	public static void exibirDadosEstufas (){
+		//System.out.println("Id da estufa:" + estufa.getIdEstufa());
+	}
+
+	public static void exibirDados() {
+		if (users.isEmpty()) {
+			System.out.println("Nenhum aluno cadastrado.");
+		} else {
+			System.out.println("Dados dos Alunos:");
+			for (User user : users) {
+				if (user instanceof AlunoCultivador) {
+					AlunoCultivador aluno = (AlunoCultivador) user;
+					System.out.println("Nome: " + aluno.getNome() + " | ID: " + aluno.getId() + " | Tipo: Cultivador");
+				} else if (user instanceof AlunoSupervisor) {
+					AlunoSupervisor aluno = (AlunoSupervisor) user;
+					System.out.println("Nome: " + aluno.getNome() + " | Tipo: Supervisor");
+				}
+			}
+		}
+	}
 }
