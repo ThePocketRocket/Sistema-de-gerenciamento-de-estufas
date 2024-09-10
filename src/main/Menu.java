@@ -1,9 +1,12 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.SortedMap;
 
+import exceptions.AguaInsuficiente;
 import login.*;
 import system.*;
 
@@ -13,9 +16,9 @@ public class Menu {
 	public static ArrayList<Estufa> estufas = new ArrayList<>();
 	private static User usuarioLogado;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws AguaInsuficiente {
 		users.add(new User("Eduardo", "Eduardo123", 3));
-		users.add(new User("Mônica", "Mônica123", 2));
+		users.add(new User("Monica", "Monica123", 2));
 		users.add(new User("Cebolinha", "Cebolinha123", 1));
 
 		login();
@@ -28,38 +31,49 @@ public class Menu {
 
 		boolean find = false;
 		while (!find) {
-			System.out.println("Digite seu nome: ");
-			String nome = sc.nextLine();
+			try {
+				System.out.println("Faça seu login para continuar:");
+				System.out.println();
+				System.out.println("Digite seu nome: ");
+				String nome = sc.nextLine();
 
-			System.out.println("Digite sua senha: ");
-			String senha = sc.nextLine();
+				System.out.println("Digite sua senha: ");
+				String senha = sc.nextLine();
 
-
-			for (User usuario : users) {
-				if ((usuario.getNome().equals(nome)) && (usuario.getSenha().equals(senha))) {
-					find = true;
+				if (nome.isEmpty() || senha.isEmpty()) {
+					System.out.println("Há campos não preenchidos.");
+					continue;
 				}
 
-				if (find) {
-					usuarioLogado = usuario;
-					System.out.printf("Bem-vindo %s!\n", nome);
-					break;
+				for (User usuario : users) {
+					if ((usuario.getNome().equals(nome)) && (usuario.getSenha().equals(senha))) {
+						find = true;
+					}
+
+					if (find) {
+						usuarioLogado = usuario;
+						System.out.printf("Bem-vindo %s!\n", nome);
+						break;
+					}
 				}
+				if (!find) {
+					System.out.println("\nUsuario não encontrado!");
+				}
+			} catch (Exception e) {
+				System.out.println("Erro: gererico");
 			}
 
-			if (!find) {
-				System.out.println("\nUsuario não encontrado!");
-			}
 		}
 	}
 
-	public static void exibirMenu() {
+	public static void exibirMenu() throws AguaInsuficiente {
 		Scanner sc = new Scanner(System.in);
 		int opcao;
 		switch (usuarioLogado.getNivel()) {
 			case 1:
 				opcao = -1;
 				while (opcao != 0) {
+					try {
 					System.out.print("""
 							1 - Visualizar Informações de Estufas
 							2 - Atualizar Dados do Plantio
@@ -79,17 +93,26 @@ public class Menu {
 					} else {
 						System.out.println("Escolha inválida! Digite novamente.");
 					}
+					}catch (InputMismatchException e) {
+                        System.out.println("Erro: Entrada invalida, digite um numero.");
+                        sc.nextLine();
+				}catch (NoSuchElementException e) {
+                    System.out.println("Erro: Entrada vazia.");
+                    sc.nextLine();
+                }
 				}
 				break;
 
 			case 2:
 				opcao = -1;
 				while (opcao != 0) {
+					try {
 					System.out.print("""
 							1 - Visualizar Informações de Estufas
 							2 - Atualizar Dados do Plantio
 							3 - Criar Relatório de Atividades dos Cultivadores
 							4 - Visualizar Dados Equipamentos
+							5 - Exibir alunos cadastrados
 							0 - Sair
 							Digite sua escolha:\s""");
 					opcao = sc.nextInt();
@@ -105,10 +128,19 @@ public class Menu {
 
 					} else if (opcao == 4) {
 						exibirDadosEquipamentos();
+					} else if (opcao == 5) {
+						exibirDadosAlunos();
 					} else if (opcao == 0) {
 						System.out.println("Saindo...");
 					} else {
-						System.out.println("Escolha inválida! Digite novamente.");
+						System.out.println("Escolha invalida! Digite novamente.");
+					}
+					}catch (InputMismatchException e) {
+                        System.out.println("Erro: Entrada invalida, Digite um numero");
+                        sc.nextLine();
+					}catch (NoSuchElementException e) {
+                        System.out.println("Erro: Entrada vazia.");
+                        sc.nextLine();
 					}
 				}
 				break;
@@ -116,12 +148,15 @@ public class Menu {
 			case 3:
 				opcao = -1;
 				while (opcao != 0) {
+					try {
 					System.out.print("""
 							1 - Visualizar Informações de Estufas
 							2 - Atualizar Dados do Plantio
 							3 - Visualizar Dados Equipamentos
 							4 - Cadastrar Estufa
 							5 - Cadastrar Aluno
+							6 - Exibir alunos cadastrados
+							7 - Colocar aluno cultivador no plantio
 							0 - Sair
 							Digite sua escolha:\s""");
 					opcao = sc.nextInt();
@@ -136,13 +171,26 @@ public class Menu {
 					} else if (opcao == 3) {
 						exibirDadosEquipamentos();
 					} else if (opcao == 4) {
+						
 						Professor.cadastraEstufa(sc);
 					} else if (opcao == 5) {
 						Professor.cadastrarAluno(sc);
+					} else if (opcao == 6) {
+						//Incompleto (Metodo esta no Professor)
+						exibirDadosAlunos();
+					}else if (opcao == 7) {
+						Professor.colocarCultivadorPlantio(users, estufas);
 					} else if (opcao == 0) {
 						System.out.println("Saindo...");
 					} else {
 						System.out.println("Escolha inválida! Digite novamente.");
+					}
+					}catch (InputMismatchException e) {
+                        System.out.println("Erro: Entrada inválida, digite um numero.");
+                        sc.nextLine();
+					} catch (NoSuchElementException e) {
+                        System.out.println("Erro: Entrada vazia.");
+                        sc.nextLine();
 					}
 				}
 				break;
@@ -190,11 +238,11 @@ public class Menu {
 		int opcaoAttDados;
 		while (true) {
 			System.out.print("""
-				Quais dados você quer atualizar?
-				1 - Adicionar substância
-				2 - Alterar nome da espécie cultivada
-				3 - Definir data de fim do plantio (data de hoje)
-				Digite sua escolha:\s""");
+					Quais dados você quer atualizar?
+					1 - Adicionar substância
+					2 - Alterar nome da espécie cultivada
+					3 - Definir data de fim do plantio (data de hoje)
+					Digite sua escolha:\s""");
 			opcaoAttDados = sc.nextInt();
 			sc.nextLine();
 
@@ -208,20 +256,20 @@ public class Menu {
 		for (Estufa estufa : estufas) {
 			if (estufa.getPlantio().getIdPlantio() == idPlantio) {
 				switch (opcaoAttDados) {
-					case 1:
-						System.out.print("Digite o nome da substância: ");
-						estufa.getPlantio().setSubstancias(sc.nextLine());
-						break;
+				case 1:
+					System.out.print("Digite o nome da substância: ");
+					estufa.getPlantio().setSubstancias(sc.nextLine());
+					break;
 
-					case 2:
-						System.out.print("Digite o nome da espécie: ");
-						estufa.getPlantio().setNomeEspecie(sc.nextLine());
-						break;
+				case 2:
+					System.out.print("Digite o nome da espécie: ");
+					estufa.getPlantio().setNomeEspecie(sc.nextLine());
+					break;
 
-					case 3:
-						estufa.getPlantio().setFim();
-						System.out.println("Fim definido: " + estufa.getPlantio().getFim());
-						break;
+				case 3:
+					estufa.getPlantio().setFim();
+					System.out.println("Fim definido: " + estufa.getPlantio().getFim());
+					break;
 				}
 				break;
 			}

@@ -1,7 +1,10 @@
 package login;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import exceptions.AguaInsuficiente;
 import main.Menu;
 import system.Estufa;
 
@@ -51,12 +54,24 @@ public class Professor extends User {
 		}
 	}
     
-    public static void cadastraEstufa(Scanner sc) {
+    public static void cadastraEstufa(Scanner sc) throws AguaInsuficiente {
 		System.out.print("Digite o nome da planta que vai ser cultivada na estufa: ");
 		String nomePlanta = sc.nextLine();
 		Estufa estufa = new Estufa(nomePlanta);
 		Menu.estufas.add(estufa);
 		System.out.println("\nEstufa cadastrada: " + estufa.getIdEstufa());
+    }
+
+    public static void colocarCultivadorPlantio(ArrayList<User> user1, ArrayList<Estufa> estufa1) {
+    	System.out.println();
+    	for (User a: user1) {
+    		if(a.getNivel()==1) {
+    			System.out.println("Alunos Cultivadores:\n"+
+    		"Nome: "+ a.getNome()+ 
+    		"\nID: "+ a.getId());
+    		}
+    		
+    	}
     }
 }
 
