@@ -8,7 +8,7 @@ import system.*;
 public class Menu {
 
 	public static ArrayList<User> users = new ArrayList<>();
-	public  static ArrayList<Estufa> estufas = new ArrayList<>();
+	public static ArrayList<Estufa> estufas = new ArrayList<>();
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -29,8 +29,10 @@ public class Menu {
 					break;
 				case 3:
 					cadastrarEstufa();
+					break;
 				case 4:
 					exibirDadosEstufas();
+					break;
 				case 0:
 					continuar = false;
 					System.out.println("Encerrando o programa.");
@@ -79,14 +81,23 @@ public class Menu {
 			System.out.println("Nível inválido. Por favor, escolha 1 ou 2.");
 		}
 	}
-	public static void cadastrarEstufa (){
-		Estufa estufa = new Estufa();
-		estufas.add(estufa);
-		System.out.println("Id da estufa:" + estufa.getIdEstufa());
 
+	public static void cadastrarEstufa() {
+		Estufa estufa = new Estufa("tomate");
+		estufas.add(estufa);
+		System.out.println("Id da estufa: " + estufa.getIdEstufa());
 	}
-	public static void exibirDadosEstufas (){
-		//System.out.println("Id da estufa:" + estufa.getIdEstufa());
+
+	public static void exibirDadosEstufas() {
+		if (estufas.isEmpty()) {
+			System.out.println("Nenhuma estufa cadastrada.");
+		} else {
+			System.out.println("Dados das Estufas:");
+			for (Estufa estufa : estufas) {
+				System.out.println("Id da Estufa: " + estufa.getIdEstufa());
+				System.out.println("Plantio:" + estufa.getPlantio());
+			}
+		}
 	}
 
 	public static void exibirDados() {

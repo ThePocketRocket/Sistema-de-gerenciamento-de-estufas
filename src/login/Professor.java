@@ -19,7 +19,7 @@ public class Professor {
     }
 
     public void cadastraEstufa() {
-    Estufa estufa = new Estufa();
+    Estufa estufa = new Estufa("tomate");
     System.out.println("Estufa cadastrada: " + estufa.getIdEstufa());
     }
 }
