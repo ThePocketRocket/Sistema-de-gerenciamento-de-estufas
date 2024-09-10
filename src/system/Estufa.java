@@ -20,9 +20,12 @@ public class Estufa {
         this.listaSensores.add(new SensorUmidadeSolo());
         this.listaSensores.add(new SensorUmidadeAr());
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             this.irrigadores.add(new Irrigador());
         }
+
+        calculaFator();
+        controlaIrrigadores();
     }
 
     public int getIdEstufa() {
@@ -40,8 +43,8 @@ public class Estufa {
 
     public void calculaFator() {
         double normTemp = ((SensorTemperatura) listaSensores.get(0)).getTemperatura();
-        double normUmiSolo = ((SensorUmidadeSolo) listaSensores.get(2)).getUmiSolo();
-        double normUmiAr = ((SensorUmidadeAr) listaSensores.get(1)).getUmiAr();
+        double normUmiSolo = ((SensorUmidadeSolo) listaSensores.get(1)).getUmiSolo();
+        double normUmiAr = ((SensorUmidadeAr) listaSensores.get(2)).getUmiAr();
 
         normTemp = (normTemp - 10) / 30;
         normUmiSolo = (5 - normUmiSolo) / 5;
@@ -51,16 +54,16 @@ public class Estufa {
     }
 
     public void controlaIrrigadores(){
-        if (this.fatorControle >= 5) {
+        if (this.fatorControle >= 0.7) {
             for (Irrigador irrigador: irrigadores) {
                 irrigador.setTempo(30);
-                irrigador.setVazao(0.5);
+                irrigador.setVazao(5);
                 irrigador.ligar();
             }
-        } else if (this.fatorControle >= 0.7) {
+        } else if (this.fatorControle >= 0.5) {
             for (Irrigador irrigador: irrigadores) {
                 irrigador.setTempo(15);
-                irrigador.setVazao(0.3);
+                irrigador.setVazao(1);
                 irrigador.ligar();
             }
         }
@@ -70,7 +73,8 @@ public class Estufa {
     @Override
     public String toString() {
         return "Estufa: " + this.idEstufa +
-                "Plantio: " + plantio.getIdPlantio() +
-                "Irrigadores: " + irrigadores.toString();
+                "\nPlantio: " + plantio.getIdPlantio() +
+                "\nIrrigadores: " + irrigadores.toString() +
+                "\nSensores: " + listaSensores.toString();
     }
 }

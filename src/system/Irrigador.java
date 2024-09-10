@@ -1,10 +1,18 @@
 package system;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Irrigador extends Sensor {
 	// Nao sei o calculo de vazao
 	private double vazao;
 	private double tempo;
 	private boolean estado = false;
+	private static final AtomicInteger contador = new AtomicInteger(1000);
+	private int numSerie;
+
+	public Irrigador () {
+		this.numSerie = contador.incrementAndGet();
+	}
 
 	public double getVazao() {
 		return vazao;
@@ -47,10 +55,9 @@ public class Irrigador extends Sensor {
 
 	@Override
 	public String toString() {
-		return "Irrigador{" +
-				"vazao=" + vazao +
-				", tempo=" + tempo +
-				", estado=" + estado +
-				'}';
+		return "\n		Irrigador " + numSerie +
+				"\n		Vazão=" + vazao +
+				"\n		Tempo=" + tempo +
+				"\n		Estado=" + estado;
 	}
 }
