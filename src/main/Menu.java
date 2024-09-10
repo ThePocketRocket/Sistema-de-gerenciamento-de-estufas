@@ -237,6 +237,7 @@ public class Menu {
 	public static void atualizarDadosPlantio(Scanner sc, int idPlantio) {
 		int opcaoAttDados;
 		while (true) {
+			try {
 			System.out.print("""
 					Quais dados você quer atualizar?
 					1 - Adicionar substância
@@ -251,8 +252,14 @@ public class Menu {
 			} else {
 				System.out.println("Inválido!");
 			}
+		}catch (InputMismatchException e) {
+            System.out.println("Erro: Entrada inválida, digite um número.");
+            sc.nextLine();
+		} catch (NoSuchElementException e) {
+            System.out.println("Erro: Entrada vazia.");
+            sc.nextLine();
 		}
-
+		}
 		for (Estufa estufa : estufas) {
 			if (estufa.getPlantio().getIdPlantio() == idPlantio) {
 				switch (opcaoAttDados) {
