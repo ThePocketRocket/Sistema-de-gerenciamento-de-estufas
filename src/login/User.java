@@ -1,11 +1,9 @@
 package login;
 
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class User {
 
-    private ArrayList<User> users = new ArrayList<>();
     private String nome;
     private String senha;
 
