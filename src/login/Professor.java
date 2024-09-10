@@ -23,6 +23,11 @@ public class Professor extends User {
 				System.out.print("Digite a senha: ");
 				String senha = sc.nextLine();
 
+				if(nome == null || nome.trim().isEmpty() || senha == null || senha.trim().isEmpty()){
+					System.out.println("Preencha os campos vazios");
+				continue;
+				}
+				
 				int nivel;
 				while (true) {
 					try {
@@ -52,6 +57,7 @@ public class Professor extends User {
 					Menu.users.add(aluno2);
 					System.out.println("Aluno supervisor cadastrado com sucesso!");
 				}
+				break;
 			} catch (Exception p) {
 				System.out.println("Erro generico");
 
@@ -60,11 +66,19 @@ public class Professor extends User {
 	}
 
 	public static void cadastraEstufa(Scanner sc) throws AguaInsuficiente {
+		while(true) {
 		System.out.print("Digite o nome da planta que vai ser cultivada na estufa: ");
 		String nomePlanta = sc.nextLine();
+		if(nomePlanta.trim().isEmpty()) {
+			System.out.println("Por favor, Digite um nome da planta que será plantada:");
+			continue;
+		}
+		
 		Estufa estufa = new Estufa(nomePlanta);
 		Menu.estufas.add(estufa);
 		System.out.println("\nEstufa cadastrada: " + estufa.getIdEstufa());
+		break;
+	}
 	}
 
 	public static void colocarCultivadorPlantio(ArrayList<User> user1, ArrayList<Estufa> estufa1) {
