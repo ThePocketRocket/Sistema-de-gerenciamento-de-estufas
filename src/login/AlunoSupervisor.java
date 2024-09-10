@@ -1,9 +1,6 @@
 package login;
 
 public class AlunoSupervisor extends User {
-	
-
-
     public AlunoSupervisor(String nome, String senha, int nivel) {
 
         super(nome, senha, nivel);
@@ -18,7 +15,6 @@ public class AlunoSupervisor extends User {
 
         return "Relatório de Aluno Gerado.";
     }
-
 }
 
 

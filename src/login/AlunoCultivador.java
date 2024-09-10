@@ -2,9 +2,7 @@ package login;
 
 
 public class AlunoCultivador extends User {
-	
     private int idPlantio;
-
 
     public AlunoCultivador(String nome, String senha, int nivel) {
 
