@@ -1,5 +1,5 @@
 package system;
-
+import exceptions.AguaInsuficiente;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -11,7 +11,7 @@ public class Estufa {
     private ArrayList <Irrigador> irrigadores = new ArrayList<>();
     private double fatorControle;
 
-    public Estufa(String nomeSubPlantio){
+    public Estufa(String nomeSubPlantio) throws AguaInsuficiente{
         this.idEstufa = contador.incrementAndGet();
 
         this.plantio = new Plantio(nomeSubPlantio);
@@ -61,8 +61,10 @@ public class Estufa {
         this.fatorControle = (normTemp + normUmiSolo + normUmiAr) / 3;
     }
 
-    public void controlaIrrigadores(){
-        if (this.fatorControle >= 0.7) {
+    public void controlaIrrigadores() throws AguaInsuficiente{
+       try {
+    	
+    	if (this.fatorControle >= 0.7) {
             for (Irrigador irrigador: irrigadores) {
                 irrigador.setTempo(30);
                 irrigador.setVazao(5);
@@ -76,6 +78,10 @@ public class Estufa {
                 irrigador.ligar();
                 CaixaAgua.usarAgua(irrigador.getVazao() * irrigador.getTempo());
             }
+        }
+        }catch(AguaInsuficiente e) {
+        	System.out.println(e.getMessage());
+        	CaixaAgua.desligarIrrigadores();
         }
     }
 
