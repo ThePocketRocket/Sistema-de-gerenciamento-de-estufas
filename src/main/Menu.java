@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import login.*;
 import system.*;
@@ -12,7 +13,9 @@ public class Menu {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-
+		
+		//Try catch do menu
+try {
 		int opcao = -1;
 		
 		while (opcao != 0) {
@@ -40,12 +43,20 @@ public class Menu {
 				case 6:
 					System.out.println("Encerrando o programa.");
 					break;
+				case 0:
+					System.out.println("Saindo");
+					break;
 				default:
 					System.out.println("Opção inválida.");
 			}
+		}//Nao consegui fazer com que se encaixasse no loop e voltasse a printar o menu
+		}catch(InputMismatchException e){
+			System.out.println("Dado inserido é invalido, Por favor insira um número");
+			sc.nextLine();
 		}
-
-		sc.close();
+	
+		
+sc.close();
 	}
 
 	public static void exibirMenu() {
@@ -60,7 +71,10 @@ public class Menu {
 		System.out.print("Digite sua escolha: ");
 	}
 
-	public static void cadastrarAluno(Scanner sc) {
+	public static void cadastrarAluno(Scanner sc) {	 
+		//esse Try-chatch
+		//Possui o mesmo problema do primeiro, e encerra o metodo de cadastrar aluno
+		try{
 		System.out.print("Digite o nome do aluno: ");
 		String nome = sc.nextLine();
 
@@ -71,10 +85,10 @@ public class Menu {
 		int nivel = sc.nextInt();
 		sc.nextLine();
 
-		while ((nivel != 1) && (nivel != 2)){
+		while ((nivel != 1) && (nivel != 2)) {
 			System.out.println("Nível inválido. Por favor, escolha 1 ou 2.");
 			System.out.println();
-			
+
 			System.out.println("Digite uma opcao valida: 1 para cultivador ou 2 para supervisor");
 			nivel = sc.nextInt();
 		}
@@ -86,15 +100,30 @@ public class Menu {
 			AlunoSupervisor aluno2 = new AlunoSupervisor(nome, senha, nivel);
 			users.add(aluno2);
 			System.out.println("Aluno supervisor cadastrado com sucesso!");
-		} 
 		}
-	
+		}catch(InputMismatchException e) {
+			System.out.println("Erro: Entrada invalida");
+			sc.nextLine();
+		}
+		catch(Exception p){
+			System.out.println("Erro inesperado");
+			
+		}
+	}
 
 	public static void cadastrarEstufa() {
-		Estufa estufa = new Estufa("tomate");
+		Scanner sc = new Scanner(System.in);
+		try {
+		System.out.println("Digite o tipo de plantação: ");
+		String plantacao = sc.nextLine();
+		Estufa estufa = new Estufa(plantacao);
 		estufas.add(estufa);
 		System.out.println("Id da estufa: " + estufa.getIdEstufa());
-	}
+		}catch(Exception e) {
+			System.out.println("Erro ao cadastrar estufa");
+			
+		}
+		}
 
 	public static void exibirDadosEstufas() {
 		if (estufas.isEmpty()) {
@@ -119,7 +148,7 @@ public class Menu {
 					System.out.println("Nome: " + aluno.getNome() + " | ID: " + aluno.getId() + " | Tipo: Cultivador");
 				} else if (user instanceof AlunoSupervisor) {
 					AlunoSupervisor aluno = (AlunoSupervisor) user;
-					System.out.println("Nome: " + aluno.getNome() + " | ID: " + aluno.getId()+ "| Tipo: Supervisor");
+					System.out.println("Nome: " + aluno.getNome() + " | ID: " + aluno.getId() + "| Tipo: Supervisor");
 				}
 			}
 		}
@@ -127,27 +156,27 @@ public class Menu {
 
 	public static void login(ArrayList<User> users) {
 		Scanner sc = new Scanner(System.in);
-		
+
 		System.out.println("Digite seu nome: ");
 		String nome = sc.nextLine();
-		
+
 		System.out.println("Digite sua senha: ");
 		String senha = sc.nextLine();
-		
+
 		boolean find = false;
-		
-		for(User a: users) {
-			if((a.getNome().equals(nome))&&(a.getSenha().equals(senha))) {
-				System.out.println("Bem vindo(a): "+ a.getNome());
-				
+
+		for (User a : users) {
+			if ((a.getNome().equals(nome)) && (a.getSenha().equals(senha))) {
+				System.out.println("Bem vindo(a): " + a.getNome());
+
 				find = true;
 				break;
-				
+
 			}
 		}
-			if (!find){
-				System.out.println("Usuario não encontrado!");
-			}
-		
+		if (!find) {
+			System.out.println("Usuario não encontrado!");
+		}
+
 	}
 }
