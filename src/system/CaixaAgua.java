@@ -1,5 +1,5 @@
 package system;
-
+import exceptions.AguaInsuficiente;
 import main.Menu;
 
 public class CaixaAgua implements Notificacao{
@@ -14,20 +14,20 @@ public class CaixaAgua implements Notificacao{
 		CaixaAgua.agua += agua;
 		if(CaixaAgua.agua > 2000){
 			CaixaAgua.agua = 2000;
-			System.out.println("A caixa está cheia");
+			System.out.println("A caixa esta cheia");
 		}
 		else {
 			System.out.println("Enxendo...");
 		}
 	}
 
-	public static void usarAgua(double agua) {
+	public static void usarAgua(double agua) throws AguaInsuficiente {
 		if(CaixaAgua.agua > agua) {
 			System.out.println("Foi usado: " + agua + "l da caixa principal ");
 			CaixaAgua.agua -=agua;
 	}
 		else {
-			desligarIrrigadores();
+			throw new AguaInsuficiente("A agua restante Ã© insuficiente");
 		}
 	}
 
@@ -38,13 +38,14 @@ public class CaixaAgua implements Notificacao{
 				irrigador.setVazao(0);
 				irrigador.desligar();
 			}
+			System.out.println("Irrigadores desligados");
 		}
 	}
 // Necessario repositorio de estufas
 	@Override
 	public void notificarTela() {
 		if(agua <= 100) {
-			System.out.println("O nivel de água está baixo.");
+			System.out.println("O nivel de ï¿½gua estï¿½ baixo.");
 			desligarIrrigadores();
 		}
 	}
