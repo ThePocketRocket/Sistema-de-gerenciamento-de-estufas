@@ -18,16 +18,14 @@ public class Irrigador extends Sensor {
 		return vazao;
 	}
 
-// Definir a vazao de agua
-	public void setVazao(double vazao) {
-		this.vazao = vazao;
-	}
-
 	public double getTempo() {
 		return tempo;
 	}
 
-// Definir a quantidade de tempo em que o irrigador estara ligado
+	public void setVazao(double vazao) {
+		this.vazao = vazao;
+	}
+
 	public void setTempo(double tempo) {
 		this.tempo = tempo;
 	}
@@ -45,7 +43,7 @@ public class Irrigador extends Sensor {
 		}
 	}
 
-	public void desligar(boolean estado) {
+	public void desligar() {
 		if (!this.estado) {
 			System.out.println("Já está desligado");
 		} else {

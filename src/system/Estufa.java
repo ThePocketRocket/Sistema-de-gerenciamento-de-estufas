@@ -41,6 +41,14 @@ public class Estufa {
         return plantio;
     }
 
+    public ArrayList<Irrigador> getIrrigadores() {
+        return irrigadores;
+    }
+
+    public ArrayList<Sensor> getListaSensores() {
+        return listaSensores;
+    }
+
     public void calculaFator() {
         double normTemp = ((SensorTemperatura) listaSensores.get(0)).getTemperatura();
         double normUmiSolo = ((SensorUmidadeSolo) listaSensores.get(1)).getUmiSolo();
