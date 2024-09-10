@@ -5,7 +5,9 @@ public class AlunoCultivador extends User {
 	
     private int idPlantio;
 
-    public AlunoCultivador(String nome, String senha, int id, int nivel, int idPlantio) {
+
+    public AlunoCultivador(String nome, String senha, int nivel, int idPlantio) {
+
         super(nome, senha, nivel);
         this.idPlantio = idPlantio;
     }

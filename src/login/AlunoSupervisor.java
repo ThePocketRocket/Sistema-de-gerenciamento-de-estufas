@@ -3,12 +3,14 @@ package login;
 public class AlunoSupervisor extends User {
 	
 
-    public AlunoSupervisor(String nome, String senha, int id, int nivel) {
+
+    public AlunoSupervisor(String nome, String senha, int nivel) {
+
         super(nome, senha, nivel);
     }
 
     public String gerarRelatorioPlantio() {
-        // irei adicionar a geração do relatório
+        // irei adicionar a geração do relatórioS
         return "Relatório de Plantio Gerado.";
     }
 

@@ -1,5 +1,6 @@
 package login;
 
+
 import java.util.ArrayList;
 
 public class Autenticador {
@@ -15,7 +16,4 @@ public void Autenticar(ArrayList<User> users, String nome, String senha) {
 			System.out.println("Usuario não encontrado");
 			break;
 		}
-	}
-	
-}
-}
+	}}}
