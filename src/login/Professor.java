@@ -9,8 +9,8 @@ public class Professor {
         this.cadastro = cadastro;
     }
 
-    public void cadastraAluno(String nome, String senha, int nivel, int idPlantio) {
-        AlunoCultivador aluno = new AlunoCultivador(nome, senha, nivel, idPlantio);
+    public void cadastraAluno(String nome, String senha, int nivel) {
+        AlunoCultivador aluno = new AlunoCultivador(nome, senha, nivel);
         if (cadastro.validaCadastro(aluno)) {
             System.out.println("Aluno cadastrado com sucesso.");
         } else {

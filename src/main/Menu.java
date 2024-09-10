@@ -12,12 +12,13 @@ public class Menu {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		boolean continuar = true;
 
-		while (continuar) {
+		int opcao = -1;
+		
+		while (opcao != 0) {
 			exibirMenu();
 
-			int opcao = sc.nextInt();
+			opcao = sc.nextInt();
 			sc.nextLine();
 
 			switch (opcao) {
@@ -34,7 +35,6 @@ public class Menu {
 					exibirDadosEstufas();
 					break;
 				case 0:
-					continuar = false;
 					System.out.println("Encerrando o programa.");
 					break;
 				default:
@@ -46,7 +46,7 @@ public class Menu {
 	}
 
 	public static void exibirMenu() {
-		System.out.println("\nMENU");
+		System.out.println("\nMENU\n");
 		System.out.println("Selecione a opção desejada:");
 		System.out.println("1 - Cadastrar um novo aluno");
 		System.out.println("2 - Ver dados dos alunos");
@@ -67,20 +67,24 @@ public class Menu {
 		int nivel = sc.nextInt();
 		sc.nextLine();
 
-		int idPl = 1;
-
+		while ((nivel != 1) && (nivel != 2)){
+			System.out.println("Nível inválido. Por favor, escolha 1 ou 2.");
+			System.out.println();
+			
+			System.out.println("Digite uma opcao valida: 1 para cultivador ou 2 para supervisor");
+			nivel = sc.nextInt();
+		}
 		if (nivel == 1) {
-			AlunoCultivador aluno1 = new AlunoCultivador(nome, senha, nivel, idPl);
+			AlunoCultivador aluno1 = new AlunoCultivador(nome, senha, nivel);
 			users.add(aluno1);
 			System.out.println("Aluno cultivador cadastrado com sucesso!");
 		} else if (nivel == 2) {
 			AlunoSupervisor aluno2 = new AlunoSupervisor(nome, senha, nivel);
 			users.add(aluno2);
 			System.out.println("Aluno supervisor cadastrado com sucesso!");
-		} else {
-			System.out.println("Nível inválido. Por favor, escolha 1 ou 2.");
+		} 
 		}
-	}
+	
 
 	public static void cadastrarEstufa() {
 		Estufa estufa = new Estufa("tomate");
@@ -111,7 +115,7 @@ public class Menu {
 					System.out.println("Nome: " + aluno.getNome() + " | ID: " + aluno.getId() + " | Tipo: Cultivador");
 				} else if (user instanceof AlunoSupervisor) {
 					AlunoSupervisor aluno = (AlunoSupervisor) user;
-					System.out.println("Nome: " + aluno.getNome() + " | Tipo: Supervisor");
+					System.out.println("Nome: " + aluno.getNome() + " | ID: " + aluno.getId()+ "| Tipo: Supervisor");
 				}
 			}
 		}
