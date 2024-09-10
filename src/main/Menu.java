@@ -10,7 +10,8 @@ public class Menu {
 
 	public static ArrayList<User> users = new ArrayList<>();
 	public static ArrayList<Estufa> estufas = new ArrayList<>();
-	public static int nivel;
+	private static int nivel;
+	private static int id;
 
 	public static void main(String[] args) {
 		users.add(new User("Eduardo", "Eduardo123", 3));
@@ -40,6 +41,7 @@ public class Menu {
 			if (find) {
 				nivel = usuario.getNivel();
 				System.out.printf("Bem-vindo %s!\n", nome);
+				id = usuario.getId();
 				break;
 			}
 		}
@@ -52,63 +54,63 @@ public class Menu {
 	public static void exibirMenu() {
 		Scanner sc = new Scanner(System.in);
 		int opcao;
-		switch (nivel){
-			case 1:
-				opcao = -1;
-				while (opcao != 0) {
-					System.out.print("""
+		switch (nivel) {
+		case 1:
+			opcao = -1;
+			while (opcao != 0) {
+				System.out.print("""
 						1 - Visualizar Informações de Estufas
 						2 - Atualizar Dados do Plantio
 						0 - Sair
 						Digite sua escolha:\s""");
-						opcao = sc.nextInt();
-						sc.nextLine();
+				opcao = sc.nextInt();
+				sc.nextLine();
 
-						if (opcao == 1) {
-							// Visualizar Informações
-						} else if (opcao == 2) {
-							// Atualizar dados
-						} else if (opcao == 0) {
-							System.out.println("Saindo...");
-						} else {
-							System.out.println("Escolha inválida! Digite novamente.");
-						}
+				if (opcao == 1) {
+					exibirDadosEstufas();
+				} else if (opcao == 2) {
+					// Atualizar dados
+				} else if (opcao == 0) {
+					System.out.println("Saindo...");
+				} else {
+					System.out.println("Escolha inválida! Digite novamente.");
 				}
-				break;
+			}
+			break;
 
-			case 2:
-				opcao = -1;
-				while (opcao != 0) {
-					System.out.print("""
+		case 2:
+			opcao = -1;
+			while (opcao != 0) {
+				System.out.print("""
 						1 - Visualizar Informações de Estufas
 						2 - Atualizar Dados do Plantio
 						3 - Criar Relatório de Atividades dos Cultivadores
 						4 - Visualizar Dados Equipamentos
 						0 - Sair
 						Digite sua escolha:\s""");
-					opcao = sc.nextInt();
-					sc.nextLine();
+				opcao = sc.nextInt();
+				sc.nextLine();
 
-					if (opcao == 1) {
-						// Visualizar Informações
-					} else if (opcao == 2) {
-						// Atualizar dados
-					} else if (opcao == 3) {
-						// Criar relatórios
-					} else if (opcao == 4) {
-						// Visualizar Sensores
-					} else if (opcao == 0) {
-						System.out.println("Saindo...");
-					} else {
-						System.out.println("Escolha inválida! Digite novamente.");
-					}
+				if (opcao == 1) {
+					exibirDadosEstufas();
+				} else if (opcao == 2) {
+					// Atualizar dados
+				} else if (opcao == 3) {
+					// Criar relatórios
+				} else if (opcao == 4) {
+					// Visualizar Sensores
+				} else if (opcao == 0) {
+					System.out.println("Saindo...");
+				} else {
+					System.out.println("Escolha inválida! Digite novamente.");
 				}
-				break;
+			}
+			break;
 
-			case 3:
-				opcao = -1;
-				while (opcao != 0) {
-					System.out.print("""
+		case 3:
+			opcao = -1;
+			while (opcao != 0) {
+				System.out.print("""
 						1 - Visualizar Informações de Estufas
 						2 - Atualizar Dados do Plantio
 						3 - Criar Relatório de Atividades dos Cultivadores
@@ -117,82 +119,50 @@ public class Menu {
 						6 - Cadastrar Aluno
 						0 - Sair
 						Digite sua escolha:\s""");
-					opcao = sc.nextInt();
-					sc.nextLine();
+				opcao = sc.nextInt();
+				sc.nextLine();
 
-					if (opcao == 1) {
-						// Visualizar Informações
-					} else if (opcao == 2) {
-						// Atualizar dados
-					} else if (opcao == 3) {
-						// Criar relatórios
-					} else if (opcao == 4) {
-						// Visualizar Sensores
-					} else if (opcao == 5) {
-						// Cadastrar Estufas
-					} else if (opcao == 6) {
-						// Cadastrar Alunos
-					} else if (opcao == 0) {
-						System.out.println("Saindo...");
-					} else {
-						System.out.println("Escolha inválida! Digite novamente.");
+				if (opcao == 1) {
+					exibirDadosEstufas();
+				} else if (opcao == 2) {
+					// Atualizar dados
+				} else if (opcao == 3) {
+					// Criar relatórios
+				} else if (opcao == 4) {
+					// Visualizar Sensores
+				} else if (opcao == 5) {
+					// Cadastrar Estufas
+				} else if (opcao == 6) {
+					for(User usuario: users) {
+						if(usuario.getId()==id) {
+							Professor professor = (Professor) usuario;
+							professor.cadastrarAluno(sc);
+							break;
+						}
 					}
+				} else if (opcao == 0) {
+					System.out.println("Saindo...");
+				} else {
+					System.out.println("Escolha inválida! Digite novamente.");
 				}
-				break;
+			}
+			break;
 		}
 	}
 
-	public static void cadastrarAluno(Scanner sc) {
-		//esse Try-chatch
-		//Possui o mesmo problema do primeiro, e encerra o metodo de cadastrar aluno
-		try{
-			System.out.print("Digite o nome do aluno: ");
-			String nome = sc.nextLine();
-
-			System.out.print("Digite a senha: ");
-			String senha = sc.nextLine();
-
-			System.out.print("Digite 1 para cadastrar um aluno cultivador ou 2 para cadastrar um aluno supervisor: ");
-			int nivel = sc.nextInt();
-			sc.nextLine();
-
-			while ((nivel != 1) && (nivel != 2)) {
-				System.out.println("Nível inválido. Por favor, escolha 1 ou 2.");
-				System.out.println();
-
-				System.out.println("Digite uma opcao valida: 1 para cultivador ou 2 para supervisor");
-				nivel = sc.nextInt();
-			}
-			if (nivel == 1) {
-				AlunoCultivador aluno1 = new AlunoCultivador(nome, senha, nivel);
-				users.add(aluno1);
-				System.out.println("Aluno cultivador cadastrado com sucesso!");
-			} else if (nivel == 2) {
-				AlunoSupervisor aluno2 = new AlunoSupervisor(nome, senha, nivel);
-				users.add(aluno2);
-				System.out.println("Aluno supervisor cadastrado com sucesso!");
-			}
-		}catch(InputMismatchException e) {
-			System.out.println("Erro: Entrada invalida");
-			sc.nextLine();
-		}
-		catch(Exception p){
-			System.out.println("Erro inesperado");
-
-		}
-	}
+	
 
 	public static void cadastrarEstufa() {
 		Scanner sc = new Scanner(System.in);
 		try {
-		System.out.println("Digite o tipo de plantação: ");
-		String plantacao = sc.nextLine();
-		Estufa estufa = new Estufa(plantacao);
-		estufas.add(estufa);
-		System.out.println("Id da estufa: " + estufa.getIdEstufa());
-		}catch(Exception e) {
+			System.out.println("Digite o tipo de plantação: ");
+			String plantacao = sc.nextLine();
+			Estufa estufa = new Estufa(plantacao);
+			estufas.add(estufa);
+			System.out.println("Id da estufa: " + estufa.getIdEstufa());
+		} catch (Exception e) {
 			System.out.println("Erro ao cadastrar estufa");
-			
+
 		}
 	}
 
@@ -202,8 +172,7 @@ public class Menu {
 		} else {
 			System.out.println("Dados das Estufas:");
 			for (Estufa estufa : estufas) {
-				System.out.println("Id da Estufa: " + estufa.getIdEstufa());
-				System.out.println("Plantio:" + estufa.getPlantio());
+				System.out.println(estufa.toString());
 			}
 		}
 	}
