@@ -13,4 +13,10 @@ public class SensorUmidadeSolo extends Sensor {
     public double getUmiSolo() {
         return umiSolo;
     }
+
+    @Override
+    public String toString() {
+        return "Número de série: " + super.getNumSerie() +
+                "\n		Tensão (Umidade solo): " + String.format("%.2f", this.umiSolo) + "V";
+    }
 }

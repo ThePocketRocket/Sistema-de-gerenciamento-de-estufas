@@ -13,4 +13,10 @@ public class SensorTemperatura extends Sensor {
 	public double getTemperatura() {
 		return temperatura;
 	}
+
+	@Override
+	public String toString() {
+		return "Número de série: " + super.getNumSerie() +
+				"\n		Temperatura: " + String.format("%.2f", this.temperatura) + "ºC";
+	}
 }

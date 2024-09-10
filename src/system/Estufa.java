@@ -59,12 +59,14 @@ public class Estufa {
                 irrigador.setTempo(30);
                 irrigador.setVazao(5);
                 irrigador.ligar();
+                CaixaAgua.usarAgua(irrigador.getVazao() * irrigador.getTempo());
             }
         } else if (this.fatorControle >= 0.5) {
             for (Irrigador irrigador: irrigadores) {
                 irrigador.setTempo(15);
-                irrigador.setVazao(1);
+                irrigador.setVazao(3);
                 irrigador.ligar();
+                CaixaAgua.usarAgua(irrigador.getVazao() * irrigador.getTempo());
             }
         }
     }
@@ -75,6 +77,9 @@ public class Estufa {
         return "Estufa: " + this.idEstufa +
                 "\nPlantio: " + plantio.getIdPlantio() +
                 "\nIrrigadores: " + irrigadores.toString() +
-                "\nSensores: " + listaSensores.toString();
+                "\nSensores: " +
+                "\n     " + listaSensores.get(0).toString() +
+                "\n     " + listaSensores.get(1).toString() +
+                "\n     " + listaSensores.get(2).toString();
     }
 }

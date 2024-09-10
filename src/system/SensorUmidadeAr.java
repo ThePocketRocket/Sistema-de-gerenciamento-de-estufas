@@ -13,4 +13,10 @@ public class SensorUmidadeAr extends Sensor{
     public double getUmiAr() {
         return umiAr;
     }
+
+    @Override
+    public String toString() {
+        return "Número de série: " + super.getNumSerie() +
+                "\n		Umidade do Ar: " + String.format("%.2f", this.umiAr) + "%";
+    }
 }
