@@ -10,7 +10,7 @@ public class Professor extends User {
         super(nome, senha, nivel);
     }
 
-    public void cadastrarAluno(Scanner sc) {
+    public static void cadastrarAluno(Scanner sc) {
 		// esse Try-chatch
 		// Possui o mesmo problema do primeiro, e encerra o metodo de cadastrar aluno
 		try {
@@ -20,22 +20,24 @@ public class Professor extends User {
 			System.out.print("Digite a senha: ");
 			String senha = sc.nextLine();
 
-			System.out.print("Digite 1 para cadastrar um aluno cultivador ou 2 para cadastrar um aluno supervisor: ");
-			int nivel = sc.nextInt();
-			sc.nextLine();
-
-			while ((nivel != 1) && (nivel != 2)) {
-				System.out.println("Nível inválido. Por favor, escolha 1 ou 2.");
-				System.out.println();
-
-				System.out.println("Digite uma opcao valida: 1 para cultivador ou 2 para supervisor");
+			int nivel;
+			while (true) {
+				System.out.print("Digite 1 para cadastrar um aluno cultivador ou 2 para cadastrar um aluno supervisor: ");
 				nivel = sc.nextInt();
+				sc.nextLine();
+
+				if (nivel == 1 || nivel == 2) {
+					break;
+				} else {
+					System.out.println("Inválido!");
+				}
 			}
+
 			if (nivel == 1) {
 				AlunoCultivador aluno1 = new AlunoCultivador(nome, senha, nivel);
 				Menu.users.add(aluno1);
 				System.out.println("Aluno cultivador cadastrado com sucesso!");
-			} else if (nivel == 2) {
+			} else {
 				AlunoSupervisor aluno2 = new AlunoSupervisor(nome, senha, nivel);
 				Menu.users.add(aluno2);
 				System.out.println("Aluno supervisor cadastrado com sucesso!");
@@ -49,9 +51,12 @@ public class Professor extends User {
 		}
 	}
     
-    public void cadastraEstufa() {
-    Estufa estufa = new Estufa("tomate");
-    System.out.println("Estufa cadastrada: " + estufa.getIdEstufa());
+    public static void cadastraEstufa(Scanner sc) {
+		System.out.print("Digite o nome da planta que vai ser cultivada na estufa: ");
+		String nomePlanta = sc.nextLine();
+		Estufa estufa = new Estufa(nomePlanta);
+		Menu.estufas.add(estufa);
+		System.out.println("\nEstufa cadastrada: " + estufa.getIdEstufa());
     }
 }
 
