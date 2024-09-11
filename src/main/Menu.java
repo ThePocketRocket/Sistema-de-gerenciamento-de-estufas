@@ -17,9 +17,9 @@ public class Menu {
 	private static User usuarioLogado;
 
 	public static void main(String[] args) throws AguaInsuficiente {
-		users.add(new User("Eduardo", "Eduardo123", 3));
-		users.add(new User("Monica", "Monica123", 2));
-		users.add(new User("Cebolinha", "Cebolinha123", 1));
+		users.add(new Professor("Eduardo", "Eduardo123", 3));
+		users.add(new AlunoSupervisor("Monica", "Monica123", 2));
+		users.add(new AlunoCultivador("Cebolinha", "Cebolinha123", 1));
 
 		login();
 
@@ -32,12 +32,12 @@ public class Menu {
 		boolean find = false;
 		while (!find) {
 			try {
-				System.out.println("Faça seu login para continuar:");
-				System.out.println();
-				System.out.println("Digite seu nome: ");
+				System.out.print("""
+						Faça seu login para continuar.
+						Digite seu nome:\s""");
 				String nome = sc.nextLine();
 
-				System.out.println("Digite sua senha: ");
+				System.out.print("Digite sua senha: ");
 				String senha = sc.nextLine();
 
 				if (nome.isEmpty() || senha.isEmpty()) {
@@ -156,7 +156,7 @@ public class Menu {
 							4 - Cadastrar Estufa
 							5 - Cadastrar Aluno
 							6 - Exibir alunos cadastrados
-							7 - Colocar aluno cultivador no plantio
+							7 - Designar aluno cultivador para plantio
 							0 - Sair
 							Digite sua escolha:\s""");
 					opcao = sc.nextInt();
@@ -171,7 +171,6 @@ public class Menu {
 					} else if (opcao == 3) {
 						exibirDadosEquipamentos();
 					} else if (opcao == 4) {
-						
 						Professor.cadastraEstufa(sc);
 					} else if (opcao == 5) {
 						Professor.cadastrarAluno(sc);
@@ -179,7 +178,13 @@ public class Menu {
 						//Incompleto (Metodo esta no Professor)
 						exibirDadosAlunos();
 					}else if (opcao == 7) {
-						Professor.colocarCultivadorPlantio(users, estufas);
+						System.out.print("Digite o ID do Aluno: ");
+						int idAluno = sc.nextInt();
+						sc.nextLine();
+						System.out.print("Digite o ID do Plantio: ");
+						int idPlantio = sc.nextInt();
+						sc.nextLine();
+						Professor.colocarCultivadorPlantio(idAluno, idPlantio);
 					} else if (opcao == 0) {
 						System.out.println("Saindo...");
 					} else {
