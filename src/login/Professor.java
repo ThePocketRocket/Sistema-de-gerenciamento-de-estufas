@@ -8,6 +8,7 @@ import exceptions.AguaInsuficiente;
 import exceptions.inputVazioException;
 import main.Menu;
 import system.Estufa;
+import system.Plantio;
 
 public class Professor extends User {
 	public Professor(String nome, String senha, int nivel) {
@@ -85,14 +86,16 @@ public class Professor extends User {
 	}
 	}
 
-	public static void colocarCultivadorPlantio(ArrayList<User> user1, ArrayList<Estufa> estufa1) {
-		System.out.println();
-		for (User a : user1) {
-			if (a.getNivel() == 1) {
-				System.out.println("Alunos Cultivadores:\n" + "Nome: " + a.getNome() + "\nID: " + a.getId());
+	public static void colocarCultivadorPlantio(int idAluno, int idPlantio) {
+		for (Estufa estufa : Menu.estufas) {
+			if (estufa.getPlantio().getIdPlantio() == idPlantio) {
+				for (User aluno : Menu.users) {
+					if ((aluno instanceof AlunoCultivador) && aluno.getId() == idAluno) {
+						((AlunoCultivador) aluno).setIdPlantio(idPlantio);
+						System.out.println(aluno.getNome() + "cadastrado no plantio " + estufa.getPlantio().getIdPlantio());
+					}
+				}
 			}
-			
-
 		}
 	}
 }

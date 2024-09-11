@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.SortedMap;
 
 import exceptions.AguaInsuficiente;
 import exceptions.inputVazioException;
@@ -18,9 +17,9 @@ public class Menu {
 	private static User usuarioLogado;
 
 	public static void main(String[] args) throws AguaInsuficiente {
-		users.add(new User("Eduardo", "Eduardo123", 3));
-		users.add(new User("Monica", "Monica123", 2));
-		users.add(new User("Cebolinha", "Cebolinha123", 1));
+		users.add(new Professor("Eduardo", "Eduardo123", 3));
+		users.add(new AlunoSupervisor("Monica", "Monica123", 2));
+		users.add(new AlunoCultivador("Cebolinha", "Cebolinha123", 1));
 
 		login();
 
@@ -33,12 +32,12 @@ public class Menu {
 		boolean find = false;
 		while (!find) {
 			try {
-				System.out.println("Faça seu login para continuar:");
-				System.out.println();
-				System.out.println("Digite seu nome: ");
+				System.out.print("""
+						Faça seu login para continuar.
+						Digite seu nome:\s""");
 				String nome = sc.nextLine();
 
-				System.out.println("Digite sua senha: ");
+				System.out.print("Digite sua senha: ");
 				String senha = sc.nextLine();
 
 				if (nome.isEmpty() || senha.isEmpty()) {
@@ -96,13 +95,14 @@ public class Menu {
 					} else {
 						System.out.println("Escolha inválida! Digite novamente.");
 					}
+
 					}catch (InputMismatchException e) {
                         System.out.println("Erro: Entrada invalida, digite um numero.");
                         sc.nextLine();
-				}catch (NoSuchElementException e) {
-                    System.out.println("Erro: Entrada vazia.");
-                    sc.nextLine();
-                }
+					}catch (NoSuchElementException e) {
+						System.out.println("Erro: Entrada vazia.");
+						sc.nextLine();
+					}
 				}
 				break;
 
@@ -110,40 +110,40 @@ public class Menu {
 				opcao = -1;
 				while (opcao != 0) {
 					try {
-					System.out.print("""
-							1 - Visualizar Informações de Estufas
-							2 - Atualizar Dados do Plantio
-							3 - Criar Relatório de Atividades dos Cultivadores
-							4 - Visualizar Dados Equipamentos
-							5 - Exibir alunos cadastrados
-							0 - Sair
-							Digite sua escolha:\s""");
-					opcao = sc.nextInt();
-					sc.nextLine();
+						System.out.print("""
+								1 - Visualizar Informações de Estufas
+								2 - Atualizar Dados do Plantio
+								3 - Criar Relatório de Atividades dos Cultivadores
+								4 - Visualizar Dados Equipamentos
+								5 - Exibir alunos cadastrados
+								0 - Sair
+								Digite sua escolha:\s""");
+						opcao = sc.nextInt();
+						sc.nextLine();
 
-					if (opcao == 1) {
-						exibirDadosEstufas();
-					} else if (opcao == 2) {
-						System.out.print("\nDigite id do plantio que você deseja alterar: ");
-						// Tratar exceptions
-						atualizarDadosPlantio(sc, sc.nextInt());
-					} else if (opcao == 3) {
+						if (opcao == 1) {
+							exibirDadosEstufas();
+						} else if (opcao == 2) {
+							System.out.print("\nDigite id do plantio que você deseja alterar: ");
+							// Tratar exceptions
+							atualizarDadosPlantio(sc, sc.nextInt());
+						} else if (opcao == 3) {
 
-					} else if (opcao == 4) {
-						exibirDadosEquipamentos();
-					} else if (opcao == 5) {
-						exibirDadosAlunos();
-					} else if (opcao == 0) {
-						System.out.println("Saindo...");
-					} else {
-						System.out.println("Escolha invalida! Digite novamente.");
-					}
-					}catch (InputMismatchException e) {
-                        System.out.println("Erro: Entrada invalida, Digite um numero");
-                        sc.nextLine();
-					}catch (NoSuchElementException e) {
-                        System.out.println("Erro: Entrada vazia.");
-                        sc.nextLine();
+						} else if (opcao == 4) {
+							exibirDadosEquipamentos();
+						} else if (opcao == 5) {
+							exibirDadosAlunos();
+						} else if (opcao == 0) {
+							System.out.println("Saindo...");
+						} else {
+							System.out.println("Escolha invalida! Digite novamente.");
+						}
+					} catch (InputMismatchException e) {
+						System.out.println("Erro: Entrada invalida, Digite um numero");
+						sc.nextLine();
+					} catch (NoSuchElementException e) {
+						System.out.println("Erro: Entrada vazia.");
+						sc.nextLine();
 					}
 				}
 				break;
@@ -152,42 +152,47 @@ public class Menu {
 				opcao = -1;
 				while (opcao != 0) {
 					try {
-					System.out.print("""
-							1 - Visualizar Informações de Estufas
-							2 - Atualizar Dados do Plantio
-							3 - Visualizar Dados Equipamentos
-							4 - Cadastrar Estufa
-							5 - Cadastrar Aluno
-							6 - Exibir alunos cadastrados
-							7 - Colocar aluno cultivador no plantio
-							0 - Sair
-							Digite sua escolha:\s""");
-					opcao = sc.nextInt();
-					sc.nextLine();
+						System.out.print("""
+								1 - Visualizar Informações de Estufas
+								2 - Atualizar Dados do Plantio
+								3 - Visualizar Dados Equipamentos
+								4 - Cadastrar Estufa
+								5 - Cadastrar Aluno
+								6 - Exibir alunos cadastrados
+								7 - Designar aluno cultivador para plantio
+								0 - Sair
+								Digite sua escolha:\s""");
+						opcao = sc.nextInt();
+						sc.nextLine();
 
-					if (opcao == 1) {
-						exibirDadosEstufas();
-					} else if (opcao == 2) {
-						System.out.print("\nDigite id do plantio que você deseja alterar: ");
-						// Tratar exceptions
-						atualizarDadosPlantio(sc, sc.nextInt());
-					} else if (opcao == 3) {
-						exibirDadosEquipamentos();
-					} else if (opcao == 4) {
-						
-						Professor.cadastraEstufa(sc);
-					} else if (opcao == 5) {
-						Professor.cadastrarAluno(sc);
-					} else if (opcao == 6) {
-						//Incompleto (Metodo esta no Professor)
-						exibirDadosAlunos();
-					}else if (opcao == 7) {
-						Professor.colocarCultivadorPlantio(users, estufas);
-					} else if (opcao == 0) {
-						System.out.println("Saindo...");
-					} else {
-						System.out.println("Escolha inválida! Digite novamente.");
-					}
+						if (opcao == 1) {
+							exibirDadosEstufas();
+						} else if (opcao == 2) {
+							System.out.print("\nDigite id do plantio que você deseja alterar: ");
+							// Tratar exceptions
+							atualizarDadosPlantio(sc, sc.nextInt());
+						} else if (opcao == 3) {
+							exibirDadosEquipamentos();
+						} else if (opcao == 4) {
+							Professor.cadastraEstufa(sc);
+						} else if (opcao == 5) {
+							Professor.cadastrarAluno(sc);
+						} else if (opcao == 6) {
+							//Incompleto (Metodo esta no Professor)
+							exibirDadosAlunos();
+						}else if (opcao == 7) {
+							System.out.print("Digite o ID do Aluno: ");
+							int idAluno = sc.nextInt();
+							sc.nextLine();
+							System.out.print("Digite o ID do Plantio: ");
+							int idPlantio = sc.nextInt();
+							sc.nextLine();
+							Professor.colocarCultivadorPlantio(idAluno, idPlantio);
+						} else if (opcao == 0) {
+							System.out.println("Saindo...");
+						} else {
+							System.out.println("Escolha inválida! Digite novamente.");
+						}
 					}catch (InputMismatchException e) {
                         System.out.println("Erro: Entrada inválida, digite um numero.");
                         sc.nextLine();
@@ -241,27 +246,27 @@ public class Menu {
 		int opcaoAttDados;
 		while (true) {
 			try {
-			System.out.print("""
-					Quais dados você quer atualizar?
-					1 - Adicionar substância
-					2 - Alterar nome da espécie cultivada
-					3 - Definir data de fim do plantio (data de hoje)
-					Digite sua escolha:\s""");
-			opcaoAttDados = sc.nextInt();
-			sc.nextLine();
+				System.out.print("""
+						Quais dados você quer atualizar?
+						1 - Adicionar substância
+						2 - Alterar nome da espécie cultivada
+						3 - Definir data de fim do plantio (data de hoje)
+						Digite sua escolha:\s""");
+				opcaoAttDados = sc.nextInt();
+				sc.nextLine();
 
-			if (opcaoAttDados > 0 && opcaoAttDados < 4) {
-				break;
-			} else {
-				System.out.println("Inválido!");
+				if (opcaoAttDados > 0 && opcaoAttDados < 4) {
+					break;
+				} else {
+					System.out.println("Inválido!");
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Erro: Entrada inválida, digite um número.");
+				sc.nextLine();
+			} catch (NoSuchElementException e) {
+				System.out.println("Erro: Entrada vazia.");
+				sc.nextLine();
 			}
-		}catch (InputMismatchException e) {
-            System.out.println("Erro: Entrada inválida, digite um número.");
-            sc.nextLine();
-		} catch (NoSuchElementException e) {
-            System.out.println("Erro: Entrada vazia.");
-            sc.nextLine();
-		}
 		}
 		for (Estufa estufa : estufas) {
 			if (estufa.getPlantio().getIdPlantio() == idPlantio) {
