@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.SortedMap;
 
 import exceptions.AguaInsuficiente;
+import exceptions.inputVazioException;
 import login.*;
 import system.*;
 
@@ -41,8 +42,7 @@ public class Menu {
 				String senha = sc.nextLine();
 
 				if (nome.isEmpty() || senha.isEmpty()) {
-					System.out.println("Há campos não preenchidos.");
-					continue;
+					throw new inputVazioException("Nome e senha nao podem estar vazios");
 				}
 
 				for (User usuario : users) {
@@ -59,7 +59,10 @@ public class Menu {
 				if (!find) {
 					System.out.println("\nUsuario não encontrado!");
 				}
-			} catch (Exception e) {
+			}catch(inputVazioException e) {
+				System.out.println("Erro: " + e.getMessage());
+			}
+			catch (Exception e) {
 				System.out.println("Erro: gererico");
 			}
 
@@ -81,7 +84,7 @@ public class Menu {
 							Digite sua escolha:\s""");
 					opcao = sc.nextInt();
 					sc.nextLine();
-
+					
 					if (opcao == 1) {
 						exibirDadosEstufas();
 					} else if (opcao == 2) {

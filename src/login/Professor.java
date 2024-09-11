@@ -5,6 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import exceptions.AguaInsuficiente;
+import exceptions.inputVazioException;
 import main.Menu;
 import system.Estufa;
 
@@ -24,8 +25,7 @@ public class Professor extends User {
 				String senha = sc.nextLine();
 
 				if(nome == null || nome.trim().isEmpty() || senha == null || senha.trim().isEmpty()){
-					System.out.println("Preencha os campos vazios");
-				continue;
+					throw new inputVazioException("Nome ou senha nao podem ser vazio(s)");
 				}
 				
 				int nivel;
@@ -58,7 +58,11 @@ public class Professor extends User {
 					System.out.println("Aluno supervisor cadastrado com sucesso!");
 				}
 				break;
-			} catch (Exception p) {
+			}catch(inputVazioException e) {
+				System.out.println("erro: "+ e.getMessage());
+			}
+			
+			catch (Exception p) {
 				System.out.println("Erro generico");
 
 			}
@@ -87,6 +91,7 @@ public class Professor extends User {
 			if (a.getNivel() == 1) {
 				System.out.println("Alunos Cultivadores:\n" + "Nome: " + a.getNome() + "\nID: " + a.getId());
 			}
+			
 
 		}
 	}
