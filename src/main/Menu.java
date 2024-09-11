@@ -64,7 +64,6 @@ public class Menu {
 			catch (Exception e) {
 				System.out.println("Erro: gererico");
 			}
-
 		}
 	}
 
@@ -76,31 +75,31 @@ public class Menu {
 				opcao = -1;
 				while (opcao != 0) {
 					try {
-					System.out.print("""
-							1 - Visualizar Informações de Estufas
-							2 - Atualizar Dados do Plantio
-							0 - Logout
-							Digite sua escolha:\s""");
-					opcao = sc.nextInt();
-					sc.nextLine();
-					
-					if (opcao == 1) {
-						exibirDadosEstufas();
-					} else if (opcao == 2) {
-						System.out.print("\nDigite id do plantio que você deseja alterar: ");
-						atualizarDadosPlantio(sc, sc.nextInt());
-					} else if (opcao == 0) {
-						System.out.println("Logout...");
-						opcao = -1;
-						login();
-					} else {
-						System.out.println("Escolha inválida! Digite novamente.");
-					}
+						System.out.print("""
+								1 - Visualizar Informações de Estufas
+								2 - Atualizar Dados do Plantio
+								0 - Logout
+								Digite sua escolha:\s""");
+						opcao = sc.nextInt();
+						sc.nextLine();
 
-					}catch (InputMismatchException e) {
+						if (opcao == 1) {
+							exibirDadosEstufas();
+						} else if (opcao == 2) {
+							System.out.print("\nDigite id do plantio que você deseja alterar: ");
+							atualizarDadosPlantio(sc, sc.nextInt());
+						} else if (opcao == 0) {
+							System.out.println("Logout...");
+							opcao = -1;
+							login();
+						} else {
+							System.out.println("Escolha inválida! Digite novamente.");
+						}
+
+					} catch (InputMismatchException e) {
                         System.out.println("Erro: Entrada invalida, digite um numero.");
                         sc.nextLine();
-					}catch (NoSuchElementException e) {
+					} catch (NoSuchElementException e) {
 						System.out.println("Erro: Entrada vazia.");
 						sc.nextLine();
 					}
@@ -180,7 +179,7 @@ public class Menu {
 							Professor.cadastrarAluno(sc);
 						} else if (opcao == 6) {
 							exibirDadosAlunos();
-						}else if (opcao == 7) {
+						} else if (opcao == 7) {
 							boolean teste = false;
 							while(!teste) {
 								try {
@@ -206,7 +205,7 @@ public class Menu {
 						} else {
 							System.out.println("Escolha inválida! Digite novamente.");
 						}
-					}catch (InputMismatchException e) {
+					} catch (InputMismatchException e) {
                         System.out.println("Erro: Entrada inválida, digite um numero.");
                         sc.nextLine();
 					} catch (NoSuchElementException e) {
