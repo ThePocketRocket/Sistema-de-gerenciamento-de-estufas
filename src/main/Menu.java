@@ -88,7 +88,6 @@ public class Menu {
 						exibirDadosEstufas();
 					} else if (opcao == 2) {
 						System.out.print("\nDigite id do plantio que você deseja alterar: ");
-						// Tratar exceptions
 						atualizarDadosPlantio(sc, sc.nextInt());
 					} else if (opcao == 0) {
 						System.out.println("Logout...");
@@ -127,10 +126,9 @@ public class Menu {
 							exibirDadosEstufas();
 						} else if (opcao == 2) {
 							System.out.print("\nDigite id do plantio que você deseja alterar: ");
-							// Tratar exceptions
 							atualizarDadosPlantio(sc, sc.nextInt());
 						} else if (opcao == 3) {
-
+							AlunoSupervisor.gerarRelatorioAluno(sc);
 						} else if (opcao == 4) {
 							exibirDadosEquipamentos();
 						} else if (opcao == 5) {
@@ -173,7 +171,6 @@ public class Menu {
 							exibirDadosEstufas();
 						} else if (opcao == 2) {
 							System.out.print("\nDigite id do plantio que você deseja alterar: ");
-							// Tratar exceptions
 							atualizarDadosPlantio(sc, sc.nextInt());
 						} else if (opcao == 3) {
 							exibirDadosEquipamentos();
@@ -182,7 +179,6 @@ public class Menu {
 						} else if (opcao == 5) {
 							Professor.cadastrarAluno(sc);
 						} else if (opcao == 6) {
-							//Incompleto (Metodo esta no Professor)
 							exibirDadosAlunos();
 						}else if (opcao == 7) {
 							boolean teste = false;
