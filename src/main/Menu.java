@@ -79,7 +79,7 @@ public class Menu {
 					System.out.print("""
 							1 - Visualizar Informações de Estufas
 							2 - Atualizar Dados do Plantio
-							0 - Sair
+							0 - Logout
 							Digite sua escolha:\s""");
 					opcao = sc.nextInt();
 					sc.nextLine();
@@ -91,7 +91,9 @@ public class Menu {
 						// Tratar exceptions
 						atualizarDadosPlantio(sc, sc.nextInt());
 					} else if (opcao == 0) {
-						System.out.println("Saindo...");
+						System.out.println("Logout...");
+						opcao = -1;
+						login();
 					} else {
 						System.out.println("Escolha inválida! Digite novamente.");
 					}
@@ -116,7 +118,7 @@ public class Menu {
 								3 - Criar Relatório de Atividades dos Cultivadores
 								4 - Visualizar Dados Equipamentos
 								5 - Exibir alunos cadastrados
-								0 - Sair
+								0 - Logout
 								Digite sua escolha:\s""");
 						opcao = sc.nextInt();
 						sc.nextLine();
@@ -134,7 +136,9 @@ public class Menu {
 						} else if (opcao == 5) {
 							exibirDadosAlunos();
 						} else if (opcao == 0) {
-							System.out.println("Saindo...");
+							System.out.println("Logout...");
+							opcao = -1;
+							login();
 						} else {
 							System.out.println("Escolha invalida! Digite novamente.");
 						}
@@ -160,7 +164,7 @@ public class Menu {
 								5 - Cadastrar Aluno
 								6 - Exibir alunos cadastrados
 								7 - Designar aluno cultivador para plantio
-								0 - Sair
+								0 - Logout
 								Digite sua escolha:\s""");
 						opcao = sc.nextInt();
 						sc.nextLine();
@@ -183,21 +187,22 @@ public class Menu {
 						}else if (opcao == 7) {
 							while(true) {
 								try {
-									
-							System.out.print("Digite o ID do Aluno: ");
-							int idAluno = sc.nextInt();
-							sc.nextLine();
-							System.out.print("Digite o ID do Plantio: ");
-							int idPlantio = sc.nextInt();
-							sc.nextLine();
-							Professor.colocarCultivadorPlantio(idAluno, idPlantio);
-							}catch(InputMismatchException e) {
-								System.out.println("Erro: Digite um numero!");
-								sc.nextLine();
-							}
+									System.out.print("Digite o ID do Aluno: ");
+									int idAluno = sc.nextInt();
+									sc.nextLine();
+									System.out.print("Digite o ID do Plantio: ");
+									int idPlantio = sc.nextInt();
+									sc.nextLine();
+									Professor.colocarCultivadorPlantio(idAluno, idPlantio);
+								}catch(InputMismatchException e) {
+									System.out.println("Erro: Digite um numero!");
+									sc.nextLine();
+								}
 							}
 						} else if (opcao == 0) {
-							System.out.println("Saindo...");
+							System.out.println("Logout...");
+							opcao = -1;
+							login();
 						} else {
 							System.out.println("Escolha inválida! Digite novamente.");
 						}
