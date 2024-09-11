@@ -185,7 +185,8 @@ public class Menu {
 							//Incompleto (Metodo esta no Professor)
 							exibirDadosAlunos();
 						}else if (opcao == 7) {
-							while(true) {
+							boolean teste = false;
+							while(!teste) {
 								try {
 									System.out.print("Digite o ID do Aluno: ");
 									int idAluno = sc.nextInt();
@@ -194,11 +195,14 @@ public class Menu {
 									int idPlantio = sc.nextInt();
 									sc.nextLine();
 									Professor.colocarCultivadorPlantio(idAluno, idPlantio);
+									teste = true;
+								
+									System.out.println("Aluno designado para o plantio");
 								}catch(InputMismatchException e) {
-									System.out.println("Erro: Digite um numero!");
-									sc.nextLine();
-								}
+								System.out.println("Erro: Digite um numero!");
+								sc.nextLine();
 							}
+								}
 						} else if (opcao == 0) {
 							System.out.println("Logout...");
 							opcao = -1;
